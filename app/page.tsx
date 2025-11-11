@@ -116,8 +116,15 @@ export default function Home() {
               <div className="absolute inset-0 w-3 h-3 bg-purple-500 rounded-full animate-ping" />
             </div>
             <span className="text-sm font-bold text-transparent bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text uppercase tracking-wider">
-              Launching Soon
-            </span>
+  Launching Soon
+</span>
+
+<button
+  className="mt-4 px-5 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold uppercase rounded-full shadow hover:from-purple-700 hover:to-pink-700 transition-all"
+  onClick={() => {
+    // TODO: Replace with real routing or modal open
+    alert("Games feature coming soon!");
+  }}
           </div>
 
           {/* Animated dots */}
