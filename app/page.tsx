@@ -45,10 +45,8 @@ export default function Home() {
 
       {/* Main content container */}
       <div className={`relative z-10 w-full max-w-5xl mx-auto text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        
         {/* Hero section */}
         <div className="space-y-8 mb-12">
-          
           {/* Main heading with improved styling */}
           <div className="relative inline-block">
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent pb-2 leading-tight">
@@ -56,7 +54,6 @@ export default function Home() {
             </h1>
             {/* Glow effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-pink-500/20 to-blue-500/20 blur-2xl -z-10" />
-            
             {/* Decorative sparkles */}
             <div className="absolute -top-4 -right-4 w-3 h-3 bg-yellow-400 rounded-full animate-ping" style={{ animationDuration: '2s' }} />
             <div className="absolute top-0 -left-6 w-2 h-2 bg-pink-400 rounded-full animate-ping" style={{ animationDuration: '3s', animationDelay: '1s' }} />
@@ -109,22 +106,24 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Status badge */}
-          <div className="inline-flex items-center gap-3 px-8 py-4 bg-white/95 backdrop-blur-md rounded-full shadow-2xl border-2 border-purple-200 hover:border-purple-300 hover:scale-105 transition-all duration-300">
+          {/* Status badge + Games button */}
+          <div className="inline-flex flex-col items-center justify-center gap-3 px-8 py-4 bg-white/95 backdrop-blur-md rounded-full shadow-2xl border-2 border-purple-200 hover:border-purple-300 hover:scale-105 transition-all duration-300">
             <div className="relative">
               <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse" />
               <div className="absolute inset-0 w-3 h-3 bg-purple-500 rounded-full animate-ping" />
             </div>
             <span className="text-sm font-bold text-transparent bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text uppercase tracking-wider">
-  Launching Soon
-</span>
-
-<button
-  className="mt-4 px-5 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold uppercase rounded-full shadow hover:from-purple-700 hover:to-pink-700 transition-all"
-  onClick={() => {
-    // TODO: Replace with real routing or modal open
-    alert("Games feature coming soon!");
-  }}
+              Launching Soon
+            </span>
+            <button
+              className="px-5 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold uppercase rounded-full shadow hover:from-purple-700 hover:to-pink-700 transition-all"
+              onClick={() => {
+                // Replace with navigation or modal if wanted
+                alert("Games feature coming soon!");
+              }}
+            >
+              Games
+            </button>
           </div>
 
           {/* Animated dots */}
@@ -139,7 +138,6 @@ export default function Home() {
       {/* Corner decorative accents */}
       <div className="absolute top-8 left-8 w-16 h-16 border-t-4 border-l-4 border-purple-400/50 rounded-tl-3xl" />
       <div className="absolute bottom-8 right-8 w-16 h-16 border-b-4 border-r-4 border-blue-400/50 rounded-br-3xl" />
-      
       {/* Small decorative dots */}
       <div className="absolute top-12 left-12 w-2 h-2 bg-purple-400 rounded-full" />
       <div className="absolute bottom-12 right-12 w-2 h-2 bg-blue-400 rounded-full" />
