@@ -20,27 +20,30 @@ const DARE_LEVELS: Record<string, DareLevel> = {
   easy: {
     name: "🎮 Fun & Playful",
     color: "bg-blue-500",
-    description: "Light-hearted & fun questions to break the ice",
+    description: "Light-hearted & fun questions",
     dares: [
-      "What's your go-to dance move when no one's watching?",
-      "What's the funniest inside joke we could create right now?",
-      "Would you rather: 24-hour road trip or cozy movie marathon?",
+      "Whisper a compliment to your partner.",
+      "Back massage for 2 minutes.",
+      "Couple dance your partner will choose the song.",
+      "Give your partner a piggyback ride for 30 seconds.",
+      "Sit on your partner's lap for the rest of the game.",
+      "Wrap your partner like a burrito with a blanket.",
+      "Find your partner being blindfolded",
+      "Kiss your partner",
     ],
   },
   medium: {
-    name: "💭 Deep & Meaningful",
+    name: "💭 Deep With Less Spice",
     color: "bg-purple-500",
-    description: "Get to know each other on a deeper level",
+    description: "",
     dares: [
-      "What's a dream you've never told anyone before?",
-      "If you could change one thing about your past, what would it be?",
-      "What makes you feel most understood by someone?",
-      "Describe the moment you felt most proud of yourself.",
-      "What's a fear you're actively trying to overcome?",
-      "If you wrote a book about your life, what would the title be?",
-      "What's one thing you wish people knew about you without asking?",
-      "When do you feel most like yourself?",
-      "What does 'home' mean to you emotionally, not physically?",
+      "Give a slow kiss on your partner’s neck for up to 20 seconds (switch roles)",
+      "Tickle your partner for 15 seconds",
+      "Give your partner a massage for 30 seconds — they choose the body part (switch roles)",
+      "Give a seductive shoulder + neck massage for 2 minutes (switch roles)",
+      "Do a 30-second lap dance for your partner",
+      "Use only 1 finger to touch 3 spots on your partner; they must guess each part — then switch roles",
+      "Be Blindfolded your partner will Kiss 3 spots; your must guess each one (switch roles)",
     ],
   },
   hard: {
@@ -48,48 +51,65 @@ const DARE_LEVELS: Record<string, DareLevel> = {
     color: "bg-red-600",
     description: "Daring questions for the brave",
     dares: [
-      "What's the most daring thing you'd do to impress me?",
-      "If I leaned in right now, would you kiss me back?",
-      
+      "Exchange each others clothes for the rest of the game",
+      "Kiss each other 3 spots of their choice (no hands allowed)",
+      "Give your partner a sensual massage for 3 minutes (switch roles)",
+      "Wear each others pants as hat for the rest of the game",
+      "Kiss your partner with open mouth for 30 seconds",
+      "kiss below the Waist (but above the knee) for 20 seconds (switch roles)",
+      "Be Under the blanket can't kiss on the lips for 3 minutes",
+      "Be blindfolded,your partner will kiss 3 parts(switch roles)",
+      "69 👻"
     ],
   },
 };
 
-// ============= ADVANCED SMART RANDOMIZER WITH BLOCKLIST =============
+// ============= SMART RANDOMIZER - ONE TIME DARES =============
 function getSmartRandomDare(
   dares: string[],
   dareTracker: DareTracker[],
   lastSelectedIndex: number | null
-): { dare: string; index: number; allBlocked: boolean } {
-  const dareStats = dares.map((dare, idx) => ({
-    dare,
-    idx,
-    count: dareTracker.find((d) => d.dareId === dare)?.count || 0,
-  }));
+): { dare: string; index: number; allUsed: boolean } {
+  const lastDareIndex = dares.length - 1;
+  
+  const dareStats = dares.map((dare, idx) => {
+    const tracker = dareTracker.find((d) => d.dareId === dare);
+    return {
+      dare,
+      idx,
+      isUsed: tracker ? tracker.count > 0 : false,
+    };
+  });
 
-  // Filter out dares that have been shown 2+ times (blocklisted)
-  const availableDares = dareStats.filter(d => d.count < 2);
+  // Check how many non-last dares have been used
+  const nonLastDares = dareStats.filter(d => d.idx !== lastDareIndex);
+  const usedNonLastDares = nonLastDares.filter(d => d.isUsed);
+  const allNonLastDaresUsed = usedNonLastDares.length === nonLastDares.length;
 
-  // If all dares are blocklisted (shown 2+ times), reset and allow all
-  if (availableDares.length === 0) {
-    const selected = dareStats[Math.floor(Math.random() * dareStats.length)];
-    return { dare: selected.dare, index: selected.idx, allBlocked: true };
+  // Filter available dares
+  let availableDares = dareStats.filter(d => !d.isUsed);
+  
+  // If last dare is available but not all other dares are used, exclude it
+  if (!allNonLastDaresUsed) {
+    availableDares = availableDares.filter(d => d.idx !== lastDareIndex);
   }
 
-  // Find minimum count among available dares
-  const minCount = Math.min(...availableDares.map(d => d.count));
-  let bestDares = availableDares.filter(d => d.count === minCount);
+  // If all dares are used, return null state
+  if (availableDares.length === 0) {
+    return { dare: "", index: -1, allUsed: true };
+  }
 
   // Avoid immediate repeat if possible
-  if (bestDares.length > 1 && lastSelectedIndex !== null) {
-    const filtered = bestDares.filter(d => d.idx !== lastSelectedIndex);
+  let selectedDares = availableDares;
+  if (selectedDares.length > 1 && lastSelectedIndex !== null) {
+    const filtered = availableDares.filter(d => d.idx !== lastSelectedIndex);
     if (filtered.length > 0) {
-      bestDares = filtered;
+      selectedDares = filtered;
     }
   }
 
-  const selected = bestDares[Math.floor(Math.random() * bestDares.length)];
-  return { dare: selected.dare, index: selected.idx, allBlocked: false };
+  const selected = selectedDares[Math.floor(Math.random() * selectedDares.length)];
+  return { dare: selected.dare, index: selected.idx, allUsed: false };
 }
 
 // ============= LEVEL MENU COMPONENT =============
@@ -126,8 +146,10 @@ function LevelMenu({ onSelectLevel }: { onSelectLevel: (level: string) => void }
       </div>
 
       <div className="mt-6 sm:mt-12 text-center text-gray-600 text-xs xs:text-sm sm:text-base px-4 space-y-1">
-        <p>✨ Smart algorithm ensures fair question distribution</p>
+        <p>✨ Each dare can only be selected once</p>
         <p>🎲 No immediate repeats for better experience</p>
+        <p>Made with 💖 by Snow ❄️☃️</p>
+
       </div>
     </div>
   );
@@ -150,11 +172,11 @@ function GameScreen({
 
   const currentDares = DARE_LEVELS[selectedLevel].dares;
 
-  // Calculate which dares are blocklisted (shown 2+ times)
+  // Calculate which dares are blocklisted (shown 1+ times)
   const getBlocklistedDares = () => {
     return currentDares.map((dare, idx) => {
       const count = dareTracker.find((d) => d.dareId === dare)?.count || 0;
-      return count >= 2 ? idx : null;
+      return count >= 1 ? idx : null;
     }).filter(idx => idx !== null) as number[];
   };
 
@@ -172,14 +194,14 @@ function GameScreen({
     
     const animate = () => {
       if (current >= 50) {
-        const { dare, index, allBlocked } = getSmartRandomDare(currentDares, dareTracker, previousSelected);
+        const { dare, index, allUsed } = getSmartRandomDare(currentDares, dareTracker, previousSelected);
 
         setSelected(index);
         setHighlight(index);
         setSelectedDare(dare);
 
-        // Show reset message if all dares were blocklisted
-        if (allBlocked) {
+        // Show reset message if all dares were used
+        if (allUsed) {
           setResetMessage(true);
           setTimeout(() => setResetMessage(false), 3000);
         }
@@ -193,7 +215,7 @@ function GameScreen({
         }
 
         // If this was a reset round, clear the tracker after selection
-        if (allBlocked) {
+        if (allUsed) {
           setDareTracker([{ dareId: dare, count: 1 }]);
         } else {
           setDareTracker(newTracker);
@@ -301,14 +323,14 @@ function GameScreen({
       {/* Blocklist Status */}
       {blocklistedDares.length > 0 && !isSpinning && (
         <div className="mb-3 xs:mb-4 px-3 xs:px-4 py-1.5 xs:py-2 bg-gray-800 text-white rounded-lg text-[10px] xs:text-xs sm:text-sm font-semibold">
-          🚫 {blocklistedDares.length} / {currentDares.length} dares blocklisted (shown 2+ times)
+          🚫 {blocklistedDares.length} / {currentDares.length} dares used (shown once)
         </div>
       )}
 
       {/* Reset Message */}
       {resetMessage && (
         <div className="mb-3 xs:mb-4 px-3 xs:px-4 py-1.5 xs:py-2 bg-yellow-500 text-gray-900 rounded-lg text-[10px] xs:text-xs sm:text-sm font-bold animate-pulse">
-          ♻️ All dares were blocklisted! Tracker reset.
+          ♻️ All dares used! Tracker reset.
         </div>
       )}
 
