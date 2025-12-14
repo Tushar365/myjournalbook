@@ -4,31 +4,81 @@ interface ProjectCardProps {
   tier: string;
 }
 
-export default function ProjectCard({ title, category, tier }: ProjectCardProps) {
-  return (
-    <div className="bg-[#241235] rounded-lg border border-[#f5bd02]/40 p-1 group hover:-translate-y-2 transition-transform duration-300 cursor-pointer shadow-lg hover:shadow-[#f5bd02]/20">
-      <div className="bg-[#1a0b2e] rounded p-4 h-full relative overflow-hidden">
-        {/* Shine Effect */}
-        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-[#f5bd02]/20 to-transparent rounded-bl-full pointer-events-none"></div>
+export default function RetroProjectCard({ title, category, tier }: ProjectCardProps) {
+  // Color schemes for different tiers
+  const tierColors: Record<string, { bg: string; border: string; accent: string }> = {
+    'Artifact': { bg: '#00f3ff', border: '#00a8b3', accent: '#ffed4e' },
+    'Legendary': { bg: '#ff006e', border: '#b30050', accent: '#00f3ff' },
+    'Mythic': { bg: '#b537f2', border: '#7b1fa2', accent: '#39ff14' },
+    'Epic': { bg: '#39ff14', border: '#2db30f', accent: '#ff006e' },
+  };
 
-        <div className="flex justify-between items-start mb-4">
-          <span className="text-xs font-bold text-[#b8a0d9] px-2 py-1 rounded bg-[#361e4d] uppercase tracking-wider">
+  const colors = tierColors[tier] || tierColors['Epic'];
+
+  return (
+    <div className="retro-card border-[#00f3ff] bg-[#050816] group hover:scale-105 transition-transform duration-200 cursor-pointer">
+      {/* Cartridge Top Label */}
+      <div 
+        className="h-2 md:h-3"
+        style={{ backgroundColor: colors.bg }}
+      />
+      
+      <div className="p-3 md:p-4 relative overflow-hidden scanlines">
+        {/* Category Badge */}
+        <div className="flex justify-between items-start mb-3 md:mb-4">
+          <span 
+            className="pixel-font text-[8px] md:text-[10px] px-2 py-1 border-2 uppercase tracking-wider"
+            style={{ 
+              backgroundColor: colors.bg,
+              borderColor: colors.border,
+              color: '#050816'
+            }}
+          >
             {category}
           </span>
-          <span className="text-[#f5bd02] text-lg">✦</span>
+          <div className="animate-blink">
+            <svg width="16" height="16" viewBox="0 0 8 8">
+              <rect x="3" y="0" width="2" height="2" fill={colors.accent} />
+              <rect x="1" y="2" width="6" height="2" fill={colors.accent} />
+              <rect x="0" y="4" width="8" height="2" fill={colors.accent} />
+              <rect x="1" y="6" width="6" height="2" fill={colors.accent} />
+            </svg>
+          </div>
         </div>
 
-        <h3 className="text-xl font-bold text-white mb-2 font-[Cinzel,serif] group-hover:text-[#f5bd02] transition-colors">{title}</h3>
-        <p className="text-sm text-[#e0c3fc]/70 mb-4">
-          A powerful artifact forged in the fires of Next.js and Tailwind.
+        {/* Title */}
+        <h3 
+          className="text-sm md:text-lg lg:text-xl pixel-font mb-2 md:mb-3 uppercase leading-relaxed"
+          style={{ color: colors.bg }}
+        >
+          {title}
+        </h3>
+        
+        {/* Description */}
+        <p className="text-[8px] md:text-[10px] text-gray-400 mb-3 md:mb-4 pixel-font leading-relaxed">
+          A powerful creation forged with modern tech
         </p>
 
-        <div className="mt-auto border-t border-[#f5bd02]/20 pt-3 flex justify-between items-center text-xs">
-          <span className="text-[#f5bd02]">Tier: {tier}</span>
-          <button className="text-[#fff] hover:text-[#f5bd02] uppercase tracking-wider font-bold">
-            Cast Spells &rarr;
+        {/* Footer */}
+        <div className="border-t-2 border-[#00f3ff]/20 pt-2 md:pt-3 flex justify-between items-center">
+          <div className="flex items-center gap-1">
+            <span className="pixel-font text-[8px] md:text-[10px]" style={{ color: colors.accent }}>
+              {tier}
+            </span>
+            {[...Array(3)].map((_, i) => (
+              <span key={i} style={{ color: colors.accent }}>★</span>
+            ))}
+          </div>
+          <button 
+            className="pixel-font text-[8px] md:text-[10px] uppercase tracking-wider hover:translate-x-1 transition-transform"
+            style={{ color: colors.bg }}
+          >
+            Play →
           </button>
         </div>
+
+        {/* Hover Scanline Effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
       </div>
     </div>
   );

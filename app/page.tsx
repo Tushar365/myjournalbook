@@ -23,7 +23,7 @@ export default function Home() {
       <Header />
       {/* Floating gradient orbs with parallax */}
       <div
-        className="absolute w-96 h-96 bg-gradient-to-br from-purple-400/30 to-pink-400/30 rounded-full blur-3xl transition-transform duration-1000 ease-out"
+        className="absolute w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-gradient-to-br from-purple-400/30 to-pink-400/30 rounded-full blur-3xl transition-transform duration-1000 ease-out"
         style={{
           top: '10%',
           left: '5%',
@@ -31,7 +31,7 @@ export default function Home() {
         }}
       />
       <div
-        className="absolute w-80 h-80 bg-gradient-to-br from-blue-400/30 to-cyan-400/30 rounded-full blur-3xl transition-transform duration-1000 ease-out"
+        className="absolute w-40 h-40 sm:w-60 sm:h-60 lg:w-80 lg:h-80 bg-gradient-to-br from-blue-400/30 to-cyan-400/30 rounded-full blur-3xl transition-transform duration-1000 ease-out"
         style={{
           bottom: '10%',
           right: '5%',
@@ -39,7 +39,7 @@ export default function Home() {
         }}
       />
       <div
-        className="absolute w-72 h-72 bg-gradient-to-br from-pink-300/20 to-purple-300/20 rounded-full blur-3xl transition-transform duration-1000 ease-out"
+        className="absolute w-36 h-36 sm:w-52 sm:h-52 lg:w-72 lg:h-72 bg-gradient-to-br from-pink-300/20 to-purple-300/20 rounded-full blur-3xl transition-transform duration-1000 ease-out"
         style={{
           top: '50%',
           left: '50%',
@@ -49,15 +49,15 @@ export default function Home() {
 
       {/* Main content container */}
       <div
-        className={`relative z-10 w-full max-w-6xl mx-auto text-center transition-all duration-1000 ${
+        className={`relative z-10 w-full max-w-7xl mx-auto text-center transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
         {/* Hero section */}
-        <div className="space-y-8 sm:space-y-12 mb-8 sm:mb-12">
+        <div className="space-y-6 sm:space-y-12 mb-8 sm:mb-12">
           {/* Main heading with improved styling */}
-          <div className="relative inline-block mb-4 sm:mb-6 px-2">
-            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent pb-2 leading-[1.1] sm:leading-[0.9] tracking-tight">
+          <div className="relative inline-block mb-2 sm:mb-6 px-4">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent pb-2 lg:pb-4 leading-[1.1] sm:leading-[0.9] tracking-tight break-words">
               MyJournal
             </h1>
             {/* Enhanced glow effect */}
@@ -65,15 +65,15 @@ export default function Home() {
           </div>
 
           {/* Main tagline - moved closer to title */}
-          <div className="space-y-6 sm:space-y-8 px-4">
-            <p className="text-2xl sm:text-4xl lg:text-5xl text-gray-800 font-bold leading-tight max-w-4xl mx-auto">
+          <div className="space-y-4 sm:space-y-8 px-4">
+            <p className="text-xl sm:text-3xl lg:text-5xl text-gray-800 font-bold leading-snug max-w-5xl mx-auto">
               AI-crafted journals designed for{' '}
-              <span className="relative inline-block">
+              <span className="relative inline-block whitespace-nowrap">
                 <span className="italic text-transparent bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text font-black">
                   your
                 </span>
                 <svg
-                  className="absolute -bottom-2 left-0 w-full"
+                  className="absolute -bottom-1 sm:-bottom-2 left-0 w-full"
                   height="10"
                   viewBox="0 0 100 10"
                   preserveAspectRatio="none"
@@ -96,23 +96,23 @@ export default function Home() {
             </p>
 
             {/* Feature pills - larger and more spaced */}
-            <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-3 sm:gap-4 max-w-4xl mx-auto pt-2">
-              <div className="w-full sm:w-auto group px-7 py-3.5 bg-white/95 backdrop-blur-md rounded-full text-purple-700 text-base font-bold shadow-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-default">
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-3 sm:gap-4 max-w-4xl mx-auto pt-4 sm:pt-2">
+              <div className="w-full sm:w-auto group px-6 py-3 sm:px-7 sm:py-3.5 bg-white/95 backdrop-blur-md rounded-full text-purple-700 text-sm sm:text-base font-bold shadow-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-default">
                 <span className="inline-block group-hover:scale-110 transition-transform mr-2">✨</span>
                 <span>Culturally Customized</span>
               </div>
-              <div className="w-full sm:w-auto group px-7 py-3.5 bg-white/95 backdrop-blur-md rounded-full text-pink-700 text-base font-bold shadow-xl border-2 border-pink-200 hover:border-pink-400 hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-default">
+              <div className="w-full sm:w-auto group px-6 py-3 sm:px-7 sm:py-3.5 bg-white/95 backdrop-blur-md rounded-full text-pink-700 text-sm sm:text-base font-bold shadow-xl border-2 border-pink-200 hover:border-pink-400 hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-default">
                 <span className="inline-block group-hover:scale-110 transition-transform mr-2">🎯</span>
                 <span>Habit-Focused</span>
               </div>
-              <div className="w-full sm:w-auto group px-7 py-3.5 bg-white/95 backdrop-blur-md rounded-full text-blue-700 text-base font-bold shadow-xl border-2 border-blue-200 hover:border-blue-400 hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-default">
+              <div className="w-full sm:w-auto group px-6 py-3 sm:px-7 sm:py-3.5 bg-white/95 backdrop-blur-md rounded-full text-blue-700 text-sm sm:text-base font-bold shadow-xl border-2 border-blue-200 hover:border-blue-400 hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-default">
                 <span className="inline-block group-hover:scale-110 transition-transform mr-2">📱</span>
                 <span>Printable or Digital</span>
               </div>
             </div>
 
             {/* Subtext - improved readability */}
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 font-medium max-w-3xl mx-auto leading-relaxed pt-2">
+            <p className="text-sm sm:text-lg lg:text-xl text-gray-600 font-medium max-w-xl sm:max-w-3xl mx-auto leading-relaxed pt-2 px-2">
               Journals that <span className="text-purple-600 font-bold">understand your culture</span>,{' '}
               <span className="text-pink-600 font-bold">track your habits</span>, and{' '}
               <span className="text-blue-600 font-bold">reflect your story</span>
@@ -120,12 +120,12 @@ export default function Home() {
           </div>
 
           {/* Status badge - more prominent */}
-          <div className="inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-white via-purple-50 to-white backdrop-blur-md rounded-full shadow-2xl border-2 border-purple-300 hover:border-purple-400 hover:shadow-purple-200/50 hover:scale-105 transition-all duration-300 mt-4 sm:mt-6">
+          <div className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-10 py-3 sm:py-5 bg-gradient-to-r from-white via-purple-50 to-white backdrop-blur-md rounded-full shadow-2xl border-2 border-purple-300 hover:border-purple-400 hover:shadow-purple-200/50 hover:scale-105 transition-all duration-300 mt-4 sm:mt-6 mx-4">
             <div className="relative">
-              <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse" />
-              <div className="absolute inset-0 w-3 h-3 bg-purple-500 rounded-full animate-ping" />
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-purple-500 rounded-full animate-pulse" />
+              <div className="absolute inset-0 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-purple-500 rounded-full animate-ping" />
             </div>
-            <span className="text-sm sm:text-base font-black text-transparent bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text uppercase tracking-widest">
+            <span className="text-xs sm:text-base font-black text-transparent bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text uppercase tracking-widest text-center">
               Launching Soon
             </span>
           </div>
@@ -133,8 +133,8 @@ export default function Home() {
       </div>
 
       {/* Corner decorative accents */}
-      <div className="hidden sm:block absolute top-8 left-8 w-16 h-16 border-t-4 border-l-4 border-purple-400/50 rounded-tl-3xl" />
-      <div className="hidden sm:block absolute bottom-8 right-8 w-16 h-16 border-b-4 border-r-4 border-blue-400/50 rounded-br-3xl" />
+      <div className="hidden lg:block absolute top-8 left-8 w-16 h-16 border-t-4 border-l-4 border-purple-400/50 rounded-tl-3xl" />
+      <div className="hidden lg:block absolute bottom-8 right-8 w-16 h-16 border-b-4 border-r-4 border-blue-400/50 rounded-br-3xl" />
       {/* Small decorative dots */}
       <div className="hidden sm:block absolute top-12 left-12 w-2 h-2 bg-purple-400 rounded-full" />
       <div className="hidden sm:block absolute bottom-12 right-12 w-2 h-2 bg-blue-400 rounded-full" />
