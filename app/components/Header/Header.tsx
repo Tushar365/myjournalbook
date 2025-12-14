@@ -96,8 +96,8 @@ const Header: React.FC = () => {
         </button>
 
         <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.navOpen : ''}`}>
-          <NavLink href="/spin-game" onClick={closeMobileMenu}>
-            Games +
+          <NavLink href="/portfolio" onClick={closeMobileMenu}>
+            Portfolio
           </NavLink>
           
           {/* Uncomment when ready to use
